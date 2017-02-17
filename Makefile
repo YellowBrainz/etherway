@@ -45,7 +45,7 @@ help:
 	docker run -i $(AUTHOR)/$(NAME):$(VERSION) help
 
 cashcow:
-	docker run -d --name=cashcow -h cashcow --net $(NETWORKNAME) --ip $(SUBNET).1 -e SUBNET=$(SUBNET) --volumes-from data-eth_cashcow -p $(MINERPORT):$(MINERPORT) $(AUTHOR)/$(NAME):$(VERSION) cashcow
+	docker run -d --name=cashcow -h cashcow --net $(NETWORKNAME) --ip $(SUBNET).1 -e SUBNET=$(SUBNET) --volumes-from data-eth_cashcow -p $(NETWORKPORT):$(NETWORKPORT) -p $(MINERPORT):$(MINERPORT) $(AUTHOR)/$(NAME):$(VERSION) cashcow
 
 ethbox:
 	docker run -d --name=ethbox -h ethbox --net $(NETWORKNAME) --ip $(SUBNET).2 -e SUBNET=$(SUBNET) --volumes-from data-eth_ethbox -p $(ETHBOXPORT):$(ETHBOXPORT) $(AUTHOR)/$(NAME):$(VERSION) ethbox
