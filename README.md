@@ -51,10 +51,8 @@ make build
 │   ├── credentials.seller
 │   ├── entrypoint.sh
 │   ├── genesis.json
-│   ├── key.miner
-│   ├── key.node1
-│   ├── key.node2
-│   ├── script1.js
+│   ├── key.cashcow
+│   ├── key.ethbox
 │   └── static-nodes.json
 ├── Dockerfile
 ├── Makefile
