@@ -1,0 +1,62 @@
+[
+  {
+    "name"              : "miner",
+    "cwd"               : ".",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "min_uptime"        : 1000,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "__subnet__.1",
+      "RPC_PORT"        : "8545",
+      "INSTANCE_NAME"   : "miner",
+      "WS_SERVER"       : "http://__subnet__.242:3000",
+      "WS_SECRET"       : "g3heim"
+    }
+  },
+  {
+    "name"              : "node1",
+    "cwd"               : ".",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "min_uptime"        : 1000,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "__subnet__.2",
+      "RPC_PORT"        : "8545",
+      "INSTANCE_NAME"   : "node1",
+      "WS_SERVER"       : "http://__subnet__.242:3000",
+      "WS_SECRET"       : "g3heim"
+    }
+  },
+  {
+    "name"              : "node2",
+    "cwd"               : ".",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "min_uptime"        : 1000,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "__subnet__.3",
+      "RPC_PORT"        : "8545",
+      "INSTANCE_NAME"   : "node2",
+      "WS_SERVER"       : "http://__subnet__.242:3000",
+      "WS_SECRET"       : "g3heim"
+    }
+  }
+]
