@@ -36,7 +36,6 @@ network:
 datavolumes:
 	docker run -d -v ethereumcashcow:/root --name data-eth_cashcow --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
 	docker run -d -v ethereumethbox:/root --name data-eth_ethbox --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
-	docker run -d -v ethereumbox2:/root --name data-eth_box2 --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
 
 rmnetwork:
 	docker network rm $(NETWORKNAME)
