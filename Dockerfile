@@ -44,6 +44,8 @@ RUN for i in admin user1 user2 user3 user4 user5 user6; do \
     done
 
 RUN /usr/local/sbin/geth --networkid $NETWORKID init $DATA_DIR/genesis.json
+ARG NETWORKPORT=60606
+ENV NETWORKPORT $NETWORKPORT
 
 # Toon has picked the port numbers
 EXPOSE 6845 60606
