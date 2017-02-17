@@ -7,12 +7,12 @@ case $1 in
 	cashcow)
 	cp /root/key.cashcow /root/.ethereum/nodekey
 	sed -i "s/__subnet__/$SUBNET/g" /root/.ethereum/static-nodes.json
-	./geth --rpccorsdomain "*" --rpcapi admin,debug,shh,txpool,miner,personal,db,eth,net,web3 --verbosity "6" --identity $1 --rpcaddr $SUBNET.1 --mine --autodag --minerthreads "1" $OPTIONS
+	/usr/local/sbin/geth --rpccorsdomain "*" --rpcapi admin,debug,shh,txpool,miner,personal,db,eth,net,web3 --verbosity "6" --identity $1 --rpcaddr $SUBNET.1 --mine --autodag --minerthreads "1" $OPTIONS
 	;;
         ethbox)
 	cp /root/key.ethbox /root/.ethereum/nodekey
 	sed -i "s/__subnet__/$SUBNET/g" /root/.ethereum/static-nodes.json
-	./geth --rpccorsdomain "*" --rpcapi eth,net,web3,debug --verbosity "6" --identity $1 --rpcaddr $SUBNET.2 $OPTIONS
+	/usr/local/sbin/geth --rpccorsdomain "*" --rpcapi eth,net,web3,debug --verbosity "6" --identity $1 --rpcaddr $SUBNET.2 $OPTIONS
 	;;
         dashboard)
 	cd /eth-netstats ; npm start
