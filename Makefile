@@ -8,9 +8,10 @@ PWD=/dockerbackup
 NETWORKNAME=etherway
 MINERPORT=6845
 ETHSTATSPORT=6000
+FULLDOCKERNAME=$(AUTHOR)/$(NAME):$(VERSION)
 
 build:
-	docker build -t $(AUTHOR)/$(NAME):$(VERSION) .
+	docker build -t $(FULLDOCKERNAME) .
 
 start: network cashcow ethbox dashboard dashboardclient
 
@@ -55,10 +56,6 @@ dashboardclient:
 dashboard:
 	docker run -d --name=dashboard -h dashboard --net $(NETWORKNAME) --ip $(SUBNET).4 -e SUBNET=$(SUBNET) -p $(ETHSTATSPORT):$(ETHSTATSPORT) $(AUTHOR)/$(NAME):$(VERSION) dashboard
 
-console: cicashcow
+console:
+	docker exec -ti cashcow /usr/local/sbin/geth attach ipc:/root/.ethereum/geth.ipc
 
-cicashcow:
-	docker exec -ti cashcow /geth attach
-
-ciethbox:
-	docker exec -ti ethbox /geth attach
