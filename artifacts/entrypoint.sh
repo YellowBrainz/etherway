@@ -2,7 +2,7 @@
 
 OPTIONS="--nodiscover --networkid $NETWORKID --port $NETWORKPORT --rpc --rpcport $MINERPORT --etherbase 0x57e25703aba36bd2575e9027de2cb9ac187dc6da --verbosity 6"
 HELP="This is a help page. \
-Available modes are: miner node1 node2 ethstats ethstatsclient help."
+Available modes are: cashcow ethbox dashboard dashboardclient help."
 case $1 in
 	cashcow)
 	cp /root/key.cashcow /root/.ethereum/nodekey
