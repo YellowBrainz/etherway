@@ -28,6 +28,23 @@ RUN cd /eth-netstats && npm install
 RUN cd /eth-netstats && npm install -g grunt-cli
 RUN cd /eth-netstats && grunt
 
+COPY artifacts/genesis.json $DATA_DIR/genesis.json
+COPY artifacts/credentials.* $DATA_DIR/
+COPY artifacts/key.* /root/
+COPY artifacts/static-nodes.json /root/.ethereum/static-nodes.json
+
+ARG NETWORKID=42
+ENV NETWORKID $NETWORKID
+
+RUN for i in admin user1 user2 user3 user4 user5 user6; do \
+    /usr/local/sbin/geth --password $DATA_DIR/credentials.$i --datadir=$DATA_DIR account new > $DATA_DIR/$i.id; \
+    sed -i "s/Address: {//g" $DATA_DIR/$i.id; \
+    sed -i "s/}//g" $DATA_DIR/$i.id; \
+    sed -i "s/$i/0x$(cat $DATA_DIR/$i.id)/" $DATA_DIR/genesis.json; \
+    done
+
+RUN /usr/local/sbin/geth --networkid $NETWORKID init $DATA_DIR/genesis.json
+
 # Toon has picked the port numbers
 EXPOSE 6845 60606
 COPY artifacts/entrypoint.sh /entrypoint.sh
