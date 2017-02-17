@@ -47,7 +47,9 @@ RUN /usr/local/sbin/geth --networkid $NETWORKID init $DATA_DIR/genesis.json
 ARG NETWORKPORT=60606
 ENV NETWORKPORT $NETWORKPORT
 
+ARG MINERPORT=6845
+ENV MINERPORT $MINERPORT
 # Toon has picked the port numbers
-EXPOSE 6845 60606
+EXPOSE $MINERPORT $NETWORKPORT
 COPY artifacts/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
