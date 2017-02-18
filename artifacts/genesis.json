@@ -2,7 +2,7 @@
     "nonce":"0x0000000000000042",
     "timestamp": "0x0",
     "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "extraData":"Welcome to bankchain!",
+    "extraData":"Welcome to etherway!",
     "difficulty":"0x40",
     "coinbase": "admin",
     "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",

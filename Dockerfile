@@ -1,15 +1,15 @@
 FROM centos:latest
-MAINTAINER Maxim B. Belooussov <belooussov@gmail.com>
-ENV DATADIR=/datadir
-RUN mkdir -p $DATADIR
-#RUN yum -y update
+MAINTAINER Maxim B. Belooussov <belooussov@gmail.com> Toon Leijtens <toon.leijtens@gmail.com>
+ENV DATADIR=/root
 RUN yum -y groupinstall "Development Tools"
 RUN yum -y install golang
+RUN yum -y install libusb
 RUN git clone https://github.com/ethereum/go-ethereum
+
 # Davy Jones' Locker
 ARG ETHVERSION=v1.5.9
 RUN cd /go-ethereum && git checkout $ETHVERSION && make geth && cp /go-ethereum/build/bin/* /usr/local/sbin/
-#RUN yum -y remove golang
+RUN yum -y remove golang
 RUN rm -rf /go-ethereum
 
 RUN yum -y install epel-release
@@ -28,12 +28,12 @@ RUN cd /eth-netstats && npm install
 RUN cd /eth-netstats && npm install -g grunt-cli
 RUN cd /eth-netstats && grunt
 
-COPY artifacts/genesis.json $DATA_DIR/genesis.json
+COPY artifacts/genesis.json $DATA_DIR/
 COPY artifacts/credentials.* $DATA_DIR/
-COPY artifacts/key.* /root/
-COPY artifacts/static-nodes.json /root/.ethereum/static-nodes.json
+COPY artifacts/key.* $DATA_DIR/
+COPY artifacts/static-nodes.json $DATADIR/.ethereum/
 
-ARG NETWORKID=42
+ARG NETWORKID=66
 ENV NETWORKID $NETWORKID
 
 RUN for i in admin user1 user2 user3 user4 user5 user6; do \
@@ -46,6 +46,9 @@ RUN for i in admin user1 user2 user3 user4 user5 user6; do \
 RUN /usr/local/sbin/geth --networkid $NETWORKID init $DATA_DIR/genesis.json
 ARG NETWORKPORT=60606
 ENV NETWORKPORT $NETWORKPORT
+
+ARG ETHBOXPORT=6844
+ENV ETHBOXPORT $ETHBOXPORT
 
 ARG MINERPORT=6845
 ENV MINERPORT $MINERPORT
