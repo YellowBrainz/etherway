@@ -28,6 +28,8 @@ RUN cd /eth-netstats && npm install
 RUN cd /eth-netstats && npm install -g grunt-cli
 RUN cd /eth-netstats && grunt
 
+WORKDIR $DATADIR
+RUN cd $DATADIR
 COPY artifacts/genesis.json $DATA_DIR/
 COPY artifacts/credentials.* $DATA_DIR/
 COPY artifacts/key.* $DATA_DIR/
