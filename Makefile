@@ -1,13 +1,12 @@
 AUTHOR=banking
 NAME=etherway
 NETWORKID=66
-NETWORKPORT=60606
+NETWORKPORT=30303
 SUBNET=10.0.66
 VERSION=latest
 PWD=/dockerbackup
 NETWORKNAME=etherway
-ETHBOXPORT=6844
-MINERPORT=6845
+RPCPORT=8545
 ETHSTATSPORT=3000
 FULLDOCKERNAME=$(AUTHOR)/$(NAME):$(VERSION)
 
@@ -45,10 +44,10 @@ help:
 	docker run -i $(AUTHOR)/$(NAME):$(VERSION) help
 
 cashcow:
-	docker run -d --name=cashcow -h cashcow --net $(NETWORKNAME) --ip $(SUBNET).1 -e SUBNET=$(SUBNET) --volumes-from data-eth_cashcow -p $(NETWORKPORT):$(NETWORKPORT) -p $(MINERPORT):$(MINERPORT) $(AUTHOR)/$(NAME):$(VERSION) cashcow
+	docker run -d --name=cashcow -h cashcow --net $(NETWORKNAME) --ip $(SUBNET).1 -e SUBNET=$(SUBNET) --volumes-from data-eth_cashcow -p $(NETWORKPORT):$(NETWORKPORT) -p $(RPCPORT):$(RPCPORT) $(AUTHOR)/$(NAME):$(VERSION) cashcow
 
 ethbox:
-	docker run -d --name=ethbox -h ethbox --net $(NETWORKNAME) --ip $(SUBNET).2 -e SUBNET=$(SUBNET) --volumes-from data-eth_ethbox -p $(ETHBOXPORT):$(ETHBOXPORT) $(AUTHOR)/$(NAME):$(VERSION) ethbox
+	docker run -d --name=ethbox -h ethbox --net $(NETWORKNAME) --ip $(SUBNET).2 -e SUBNET=$(SUBNET) --volumes-from data-eth_ethbox -p $(RPCPORT) $(AUTHOR)/$(NAME):$(VERSION) ethbox
 
 dashboardclient:
 	docker run -d --name=dashboardclient -h dashboardclient --net $(NETWORKNAME) --ip $(SUBNET).3 -e SUBNET=$(SUBNET) $(AUTHOR)/$(NAME):$(VERSION) dashboardclient
