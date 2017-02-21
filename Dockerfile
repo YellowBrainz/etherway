@@ -22,12 +22,11 @@ ENV WS_SECRET g3heim
 #ENTRYPOINT ["pm2","start","--no-daemon","app.json"]
 
 # eth-netstats
-RUN git clone https://github.com/cubedro/eth-netstats
-RUN cd /eth-netstats && npm install
-RUN cd /eth-netstats && npm install -g grunt-cli
-RUN cd /eth-netstats && grunt
+RUN git clone https://github.com/cubedro/eth-netstats &&\
+    cd /eth-netstats && npm install &&\
+    cd /eth-netstats && npm install -g grunt-cli &&\
+    cd /eth-netstats && grunt
 
-RUN mkdir /root/.ethereum
 ENV DATADIR=/root/.ethereum
 WORKDIR $DATADIR
 COPY artifacts/genesis.json /root/.ethereum/
