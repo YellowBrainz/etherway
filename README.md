@@ -129,7 +129,7 @@ The topology of the virtual network is reflected in the following diagram:
    |--(virt. docker lan)----+------+------+-------+-----------+
                             |      |      |       |           |
                           miner  nodeX  node2  monitoring  monitoring
-                                                server      client
+                        (cashcow)                server      client
 
 ```
 
