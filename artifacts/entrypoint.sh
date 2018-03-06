@@ -7,7 +7,7 @@ case $1 in
 	cashcow)
 	cp /root/.ethereum/key.cashcow /root/.ethereum/nodekey
 	sed -i "s/__subnet__/$SUBNET/g" /root/.ethereum/static-nodes.json
-	/usr/local/sbin/geth --rpccorsdomain "*" --rpcapi admin,debug,shh,txpool,miner,personal,db,eth,net,web3 --identity $1 --rpcaddr $SUBNET.1 --mine --autodag --minerthreads "1" $OPTIONS
+	/usr/local/sbin/geth --rpccorsdomain "*" --rpcapi admin,debug,shh,txpool,miner,personal,db,eth,net,web3 --identity $1 --rpcaddr $SUBNET.1 --mine --minerthreads "1" $OPTIONS
 	;;
         ethbox)
 	cp /root/.ethereum/key.ethbox /root/.ethereum/nodekey
