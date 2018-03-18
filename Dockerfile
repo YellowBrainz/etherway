@@ -5,7 +5,7 @@ RUN yum -y install golang
 RUN git clone https://github.com/ethereum/go-ethereum
 
 # Davy Jones' Locker
-ARG ETHVERSION=v1.8.2
+ARG ETHVERSION=v1.7.3
 RUN cd /go-ethereum && git checkout $ETHVERSION && make geth && cp /go-ethereum/build/bin/* /usr/local/sbin/
 RUN yum -y remove golang
 RUN rm -rf /go-ethereum

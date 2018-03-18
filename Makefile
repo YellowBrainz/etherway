@@ -34,8 +34,8 @@ network:
 	docker network create --subnet $(SUBNET).0/16 --gateway $(SUBNET).254 $(NETWORKNAME)
 
 datavolumes:
-	docker run -d -v ethereumcashcow:/root --name data-eth_cashcow --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
-	docker run -d -v ethereumethbox:/root --name data-eth_ethbox --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
+	docker run -d -v ethereumcashcow:/root/.ethereum --name data-eth_cashcow --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
+	docker run -d -v ethereumethbox:/root/.ethereum --name data-eth_ethbox --entrypoint /bin/echo $(AUTHOR)/$(NAME):$(VERSION)
 
 rmnetwork:
 	docker network rm $(NETWORKNAME)
