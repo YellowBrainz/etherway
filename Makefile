@@ -11,7 +11,7 @@ ETHSTATSPORT=3000
 FULLDOCKERNAME=$(AUTHOR)/$(NAME):$(VERSION)
 
 build:
-	docker build -t $(FULLDOCKERNAME) .
+	docker build -t $(FULLDOCKERNAME) --build-arg WS_SECRET=$(PASSWD) .
 
 start: network cashcow ethbox dashboard dashboardclient
 

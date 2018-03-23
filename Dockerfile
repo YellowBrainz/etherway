@@ -1,6 +1,7 @@
 FROM centos:latest
 MAINTAINER Maxim B. Belooussov <belooussov@gmail.com> Toon Leijtens <toon.leijtens@gmail.com>
 RUN yum -y groupinstall "Development Tools"
+RUN yum -y install bc
 RUN yum -y install golang
 RUN git clone https://github.com/ethereum/go-ethereum
 
@@ -15,22 +16,28 @@ RUN yum -y update
 RUN yum -y install libusb
 RUN yum -y install nodejs npm
 RUN git clone https://github.com/cubedro/eth-net-intelligence-api /eth-net-intelligence-api
-RUN cd /eth-net-intelligence-api && npm install -d && npm install pm2 -g
+
+ARG WS_SECRET
+ENV WS_SECRET ${WS_SECRET}
 COPY artifacts/app.json /eth-net-intelligence-api/app.json
-ENV WS_SECRET g3heim
-#WORKDIR /eth-net-intelligence-api
-#ENTRYPOINT ["pm2","start","--no-daemon","app.json"]
+RUN sed -i "s/__PW__/`echo $WS_SECRET`/g" /eth-net-intelligence-api/app.json
+RUN cd /eth-net-intelligence-api && npm install -d && npm install pm2 -g
+
+# WORKDIR /eth-net-intelligence-api
+# ENTRYPOINT ["pm2","start","--no-daemon","app.json"]
+
+WORKDIR /
 
 # eth-netstats
 RUN git clone https://github.com/cubedro/eth-netstats &&\
     cd /eth-netstats && npm install &&\
     cd /eth-netstats && npm install -g grunt-cli &&\
-    cd /eth-netstats && grunt
+    cd /eth-netstats && grunt all
 
 ENV DATADIR=/root/.ethereum
 WORKDIR $DATADIR
+
 COPY artifacts/genesis.json /root/.ethereum/
-COPY artifacts/credentials.* /root/.ethereum/
 COPY artifacts/key.* /root/.ethereum/
 COPY artifacts/static-nodes.json /root/.ethereum/
 
@@ -38,6 +45,7 @@ ARG NETWORKID=66
 ENV NETWORKID $NETWORKID
 
 RUN for i in admin user1 user2 user3 user4 user5 user6; do \
+	echo $WS_SECRET > credentials.$i; \
     /usr/local/sbin/geth --datadir /root/.ethereum --password /root/.ethereum/credentials.$i account new > /root/.ethereum/$i.id; \
     sed -i "s/Address: {//g" /root/.ethereum/$i.id; \
     sed -i "s/}//g" /root/.ethereum/$i.id; \

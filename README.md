@@ -33,8 +33,10 @@ Enter the source subdirectory and build the image:
 
 ```
 cd etherway
-make build
+PASSWD="<YourPassword>" make build
 ```
+
+Note that this will set all the passwords (the ethereum accounts + monitoring).
 
 #### The folder structure and key files
 
@@ -42,13 +44,6 @@ make build
 .
 ├── artifacts
 │   ├── app.json
-│   ├── credentials.buyer
-│   ├── credentials.carrier
-│   ├── credentials.inspector
-│   ├── credentials.miner
-│   ├── credentials.node1
-│   ├── credentials.node2
-│   ├── credentials.seller
 │   ├── entrypoint.sh
 │   ├── genesis.json
 │   ├── key.cashcow
@@ -72,9 +67,6 @@ contains network id and difficulty setting for Proof-of-Work.
 This function can be installed on the geth prompt '> '
 `static-nodes.json` : the configuration file, which contains the nodes ip
 addresses and node ids to connect to on startup.
-`credentials` : these files contain the account passwords. You can change the
-individual account passwords by modifying these files. Do not forget to rebuild
-the image.
 `entrypoint.sh` : the shell script executed by docker upon startup of the
 container, takes the "role" parameter, returns help page when no role parameter
 is provided.
@@ -90,9 +82,9 @@ make datavolumes
 The miner node requires a DAG file, that is generated if it does not exist.
 The generation takes around 8 minutes on a 2-GHz Intel processor. The DAG file
 is 1 GB in size. In order to avoid regenerating the DAG file every time we
-start up the environment, the DAG file will be stored in the persistent data
-volume. Note that the DAG file also gets automatically regenerated once per
-month.
+start up the environment for the first time, the DAG file will be stored in
+the persistent data volume. Note that the DAG file also gets automatically
+regenerated once per month.
 
 To completely remove all the data volumes from your disk (and lose all data on
 these volumes for forever), use this command:
@@ -109,7 +101,7 @@ To start up your personal Ethereum network, start all the components with one co
 make start
 ```
 
-This will create a separate virtual network called "tlnet" in Docker, will
+This will create a separate virtual network called "etherway" in Docker, will
 launch one miner node, two normal nodes, the monitoring client, and the
 monitoring server nodes, all from a single docker image. The network range for
 the virtual docker network is defined in the Makefile. Each container has its
@@ -152,7 +144,7 @@ To inspect the network and see what's in there simply run the following docker
 command:
 
 ```
-docker network inspect tlnet
+docker network inspect etherway
 ```
 
 ### Step 6: interact with the environment
@@ -237,7 +229,7 @@ make console
 Step 2 - Unlock the account (0) you want to transfer funds from
 
 ```
-> personal.unlockAccount(eth.accounts[0],"g3heimpje")
+> personal.unlockAccount(eth.accounts[0],"<YourPassword>")
 ```
 
 Step 3 - Transfer the funds from account 0 to account 1
