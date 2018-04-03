@@ -42,16 +42,17 @@ Note that this will set all the passwords (the ethereum accounts + monitoring).
 
 ```
 .
-├── artifacts
-│   ├── app.json
-│   ├── entrypoint.sh
-│   ├── genesis.json
-│   ├── key.cashcow
-│   ├── key.ethbox
-│   └── static-nodes.json
-├── Dockerfile
-├── Makefile
-└── README.md
+|
++-- artifacts
+|   +-- app.json
+|   +-- entrypoint.sh
+|   +-- genesis.json
+|   +-- key.cashcow
+|   +-- key.ethbox
+|   +-- static-nodes.json
++-- Dockerfile
++-- Makefile
++-- README.md
 ```
 
 `Dockerfile` : the receipe to build the ing-bank/ethnetwork docker image
