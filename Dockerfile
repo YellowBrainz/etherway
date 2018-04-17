@@ -1,5 +1,5 @@
 FROM centos:latest
-MAINTAINER Maxim B. Belooussov <belooussov@gmail.com> Toon Leijtens <toon.leijtens@gmail.com>
+MAINTAINER Maxim B. Belooussov <belooussov@gmail.com> Toon Leijtens <toon.leijtens@ing.com>
 RUN yum -y groupinstall "Development Tools"
 RUN yum -y install bc
 RUN yum -y install golang

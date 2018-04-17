@@ -266,7 +266,7 @@ If you change `genesis.json` file, you will need to rebuild your Docker image.
 # Disclaimer
 
 This is a development toolkit to quickly build Ethereum network in Docker.
-This is not meant to be a base for the production project.
+This is not meant to be a bases for the production project.
 All RPC interfaces are exposed.
 
 ## Contact
@@ -274,4 +274,3 @@ All RPC interfaces are exposed.
 This concludes this mini tutorial. Your feedback and corrections are appreciated.
 
 Toon Leijtens <toon.leijtens@ing.com> and Maxim B. Belooussov <belooussov@gmail.com>
-August-October 2016
