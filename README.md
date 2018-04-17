@@ -273,5 +273,5 @@ All RPC interfaces are exposed.
 
 This concludes this mini tutorial. Your feedback and corrections are appreciated.
 
-Toon Leijtens <toon.leijtens@gmail.com> and Maxim B. Belooussov <belooussov@gmail.com>
+Toon Leijtens <toon.leijtens@ing.com> and Maxim B. Belooussov <belooussov@gmail.com>
 August-October 2016
