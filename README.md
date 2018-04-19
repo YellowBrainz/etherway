@@ -5,7 +5,7 @@ Welcome to the [Etherway](https://github.com/ing-bank/etherway/)
 project, a centos:latest with a configurable version of geth.  It will build
 the ultimate thing; A Dockerized Ethereum network with monitoring, and debugging.
 
-In the box you will find a minernode (cashcow), ethereum client node (ethbox).
+In the box you will find a minernode (eth_one), ethereum client node (eth_two).
 Both implemented as virtual machines in a virtual docker-lan. Along with these
 nodes you find a dashboard, a dashboard client and a virtual debug machine.
 
@@ -47,8 +47,8 @@ Note that this will set all the passwords (the ethereum accounts + monitoring).
 |   +-- app.json
 |   +-- entrypoint.sh
 |   +-- genesis.json
-|   +-- key.cashcow
-|   +-- key.ethbox
+|   +-- key.eth_one
+|   +-- key.eth_two
 |   +-- static-nodes.json
 +-- Dockerfile
 +-- Makefile
@@ -122,7 +122,7 @@ The topology of the virtual network is reflected in the following diagram:
    |--(virt. docker lan)----+------+------+-------+-----------+
                             |      |      |       |           |
                           miner  nodeX  node2  monitoring  monitoring
-                        (cashcow)                server      client
+                        (eth_one)                server      client
 
 ```
 
