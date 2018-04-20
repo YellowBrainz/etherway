@@ -39,7 +39,8 @@ WORKDIR $DATADIR
 
 COPY artifacts/genesis.json /root/.ethereum/
 COPY artifacts/key.* /root/.ethereum/
-COPY artifacts/static-nodes.json /root/.ethereum/
+COPY artifacts/static-nodes_one.json /root/.ethereum/
+COPY artifacts/static-nodes_two.json /root/.ethereum/
 
 ARG NETWORKID=66
 ENV NETWORKID $NETWORKID
