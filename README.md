@@ -49,7 +49,8 @@ Note that this will set all the passwords (the ethereum accounts + monitoring).
 |   +-- genesis.json
 |   +-- key.eth_one
 |   +-- key.eth_two
-|   +-- static-nodes.json
+|   +-- static-nodes_one.json
+|   +-- static-nodes_two.json
 +-- Dockerfile
 +-- Makefile
 +-- README.md
@@ -62,12 +63,11 @@ and monitoring nodes.
 
 Most of the files found in `./artifacts` folder will be copied to the Docker
 container and are used by the different containers.
-`genesis` : this is the genesis block used to initialize the Ethereum nodes,
+`genesis.json` : this is the genesis block used to initialize the Ethereum nodes,
 contains network id and difficulty setting for Proof-of-Work.
-`script1.js` : a sample javascript which shows how much ether each account has.
-This function can be installed on the geth prompt '> '
-`static-nodes.json` : the configuration file, which contains the nodes ip
-addresses and node ids to connect to on startup.
+`key.eth_*` : a pseudo random seed used to arrive at the same node addresses that we have captured in the `static-nodes_*.json` files. When changing this, please remember to read the generated node addresses from the `geth` prompt and update the `static-nodes_*.json` files with these. You will need to rebuild the container and restart.
+`static-nodes_*.json` : the configuration files, which contains the nodes address and associated ip
+addresses to connect to on startup.
 `entrypoint.sh` : the shell script executed by docker upon startup of the
 container, takes the "role" parameter, returns help page when no role parameter
 is provided.
@@ -81,11 +81,8 @@ make datavolumes
 ```
 
 The miner node requires a DAG file, that is generated if it does not exist.
-The generation takes around 8 minutes on a 2-GHz Intel processor. The DAG file
-is 1 GB in size. In order to avoid regenerating the DAG file every time we
-start up the environment for the first time, the DAG file will be stored in
-the persistent data volume. Note that the DAG file also gets automatically
-regenerated once per month.
+Datavolumes are created per node and meant to retain all data (chaindata and
+keyfiles).
 
 To completely remove all the data volumes from your disk (and lose all data on
 these volumes for forever), use this command:
@@ -119,10 +116,10 @@ The topology of the virtual network is reflected in the following diagram:
                             |
                          (bridge)
                             |
-   |--(virt. docker lan)----+------+------+-------+-----------+
-                            |      |      |       |           |
-                          miner  nodeX  node2  monitoring  monitoring
-                        (eth_one)                server      client
+   |--(virt. docker lan)----+--------+---------+-----------+
+                            |        |         |           |
+                          miner    node2   monitoring  monitoring
+                        (eth_one) (eth_two)  server      client
 
 ```
 
@@ -261,13 +258,17 @@ vi artifacts/genesis.json
 Note: every account will be initialized with 5000 Ether
 (5000 * 10000000000000000000 Wei) at the outset.
 
-If you change `genesis.json` file, you will need to rebuild your Docker image.
+If you change `genesis.json` file, you will need to stop + remove all dockers,
+delete all datavolumes and rebuild your Docker image.
+
+Also when updating the network-id in the `genesis.json` file, also visit the
+`Dockerfile` and `Makefile`.
 
 # Disclaimer
 
 This is a development toolkit to quickly build Ethereum network in Docker.
 This is not meant to be a bases for the production project.
-All RPC interfaces are exposed.
+All RPC interfaces are exposed!
 
 ## Contact
 
